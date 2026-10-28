@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>七宗罪👿·七美德😇</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'PingFang SC','Microsoft YaHei',serif;
+  min-height:100vh;
+  color:#c8c0b8;
+  padding:20px;
+  transition:background .6s ease,color .4s ease;
+  overflow-x:hidden;
+}
+#rainCanvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+#burstLayer{
+  position:fixed;
+  inset:0;
+  z-index:998;
+  pointer-events:none;
+  overflow:hidden;
+}
+.burst-text{
+  position:absolute;
+  white-space:nowrap;
+  text-shadow:0 0 8px currentColor;
+  animation:burstFly 1.8s ease-out forwards;
+}
+@keyframes burstFly{
+  0%{
+    opacity:1;
+    transform:translate(0,0) scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:translate(var(--tx),var(--ty)) scale(0.2);
+  }
+}
+/* ==========人格解析页面：大背景五颜六色流动渐变========== */
+body.parse-mode{
+  background: linear-gradient(-45deg, #2b0808,#08182b,#1b2b09,#291030,#0f2e2e);
+  background-size:400% 400%;
+  animation:gradientShift 12s ease infinite;
+  color:#eee;
+}
+@keyframes gradientShift {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+body.parse-mode::before,
+body.parse-mode::after{
+  display:none !important;
+}
+/* --------七宗罪分组【红色暗黑风】-------- */
+.sin-group-wrap{
+  border:1px solid rgba(160,20,20,.45);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:28px;
+  background:rgba(70,10,10,.25);
+  box-shadow:0 0 18px rgba(140,0,0,.22);
+}
+.sin-group-title{
+  text-align:center;
+  font-size:1.4rem;
+  margin-bottom:18px;
+  letter-spacing:3px;
+  color:#ff7070;
+  text-shadow:0 0 10px rgba(180,0,0,.5);
+}
+.sin-parse-card{
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+  border:1px solid rgba(150,0,0,.35);
+  background:rgba(60,8,8,.35);
+}
+.sin-parse-card .parse-text-block{
+  margin-top:10px;
+  line-height:1.8;
+  white-space:pre-line;
+  color:#ffd2d2;
+}
+/* --------七美德分组【金黄色神圣风】-------- */
+.vir-group-wrap{
+  border:1px solid rgba(212,170,60,.45);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:28px;
+  background:rgba(65,50,15,.25);
+  box-shadow:0 0 18px rgba(200,150,40,.22);
+}
+.vir-group-title{
+  text-align:center;
+  font-size:1.4rem;
+  margin-bottom:18px;
+  letter-spacing:3px;
+  color:#ffdd77;
+  text-shadow:0 0 10px rgba(220,170,30,.5);
+}
+.vir-parse-card{
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+  border:1px solid rgba(200,155,40,.35);
+  background:rgba(55,42,10,.35);
+}
+.vir-parse-card .parse-text-block{
+  margin-top:10px;
+  line-height:1.8;
+  white-space:pre-line;
+  color:#fff1cc;
+}
+/* ========== 七宗罪主题 ========== */
+body.sin-mode{
+  background:
+    radial-gradient(ellipse at 20% 50%,rgba(120,0,0,.18) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 30%,rgba(90,0,0,.15) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 100%,rgba(70,0,0,.22) 0%,transparent 40%),
+    #070707;
+}
+body.sin-mode::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:
+    linear-gradient(180deg, rgba(120,0,0,.35) 0%, rgba(120,0,0,.12) 20%, transparent 40%),
+    radial-gradient(circle at 20% 0%, rgba(180,0,0,.25), transparent 25%),
+    radial-gradient(circle at 70% 0%, rgba(150,0,0,.22), transparent 28%),
+    radial-gradient(circle at 40% 0%, rgba(140,0,0,.18), transparent 22%);
+  animation:bloodFloat 6s ease-in-out infinite alternate;
+}
+@keyframes bloodFloat{
+  0%{opacity:.75;filter:blur(.4px)}
+  100%{opacity:1;filter:blur(.8px)}
+}
+body.sin-mode::after{
+  content:"";
+  position:fixed;
+  top:0;left:0;right:0;
+  height:12px;
+  background:linear-gradient(90deg,transparent 5%,#a50000 25%,#6b0000 50%,#a50000 75%,transparent 95%);
+  box-shadow:0 0 24px rgba(180,0,0,.55),0 0 80px rgba(120,0,0,.35);
+  pointer-events:none;
+  z-index:1000;
+  animation:bloodTopPulse 4s ease-in-out infinite;
+}
+@keyframes bloodTopPulse{
+  0%,100%{height:10px;opacity:.85}
+  50%{height:16px;opacity:1}
+}
+.blood-drop{
+  position:fixed;
+  top:0;
+  width:2.5px;
+  background:linear-gradient(180deg,#c10000,#600000,transparent);
+  filter:blur(.3px);
+  z-index:999;
+  animation:drip 6s linear infinite;
+  box-shadow:0 0 8px rgba(180,0,0,.55);
+}
+@keyframes drip{
+  0%{transform:translateY(0);opacity:.55}
+  40%{opacity:.85}
+  100%{transform:translateY(110vh);opacity:0}
+}
+/* ========== 七美德主题 ========== */
+body.vir-mode{
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(255,255,240,.9) 0%,transparent 55%),
+    radial-gradient(ellipse at 25% 80%,rgba(220,200,150,.18) 0%,transparent 45%),
+    radial-gradient(ellipse at 75% 85%,rgba(200,180,120,.14) 0%,transparent 40%),
+    linear-gradient(160deg,#f7f2e8 0%,#ebe4d4 45%,#ddd4c2 100%);
+  color:#3a3530;
+}
+body.vir-mode::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,255,255,.9),transparent 30%),
+    radial-gradient(circle at 30% 20%,rgba(255,248,220,.6),transparent 25%),
+    radial-gradient(circle at 70% 15%,rgba(255,240,200,.5),transparent 22%);
+  animation:angelBreath 5s ease-in-out infinite alternate;
+}
+@keyframes angelBreath{
+  0%{opacity:.75}
+  100%{opacity:1}
+}
+body.vir-mode::after{
+  content:"";
+  position:fixed;
+  top:0;left:0;right:0;
+  height:4px;
+  background:linear-gradient(90deg,transparent 5%,#e6c97a 25%,#fff3c4 50%,#e6c97a 75%,transparent 95%);
+  box-shadow:0 0 20px rgba(255,220,140,.55),0 0 70px rgba(200,180,120,.35);
+  pointer-events:none;
+  z-index:1000;
+}
+.star{
+  position:fixed;
+  width:3.5px;
+  height:3.5px;
+  background:#fffde7;
+  border-radius:50%;
+  box-shadow:0 0 10px #fff3b0,0 0 22px rgba(255,230,160,.5);
+  z-index:999;
+  animation:twinkle 3.5s ease-in-out infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.25;transform:scale(.7)}
+  50%{opacity:1;transform:scale(1.2)}
+}
+/* ========== 切换过渡遮罩 ========== */
+.theme-transition{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2000;
+  opacity:0;
+}
+.fire-rise{
+  background:linear-gradient(to top, rgba(110,0,0,.9), rgba(70,0,0,.6), rgba(0,0,0,0));
+  animation:fireUp 0.8s ease forwards;
+}
+@keyframes fireUp{
+  0%{opacity:0}
+  30%{opacity:1}
+  100%{opacity:0}
+}
+.rain-fall{
+  background:linear-gradient(to bottom, rgba(200,210,230,.7), rgba(240,235,220,.4), transparent);
+  animation:rainDown 0.8s ease forwards;
+}
+@keyframes rainDown{
+  0%{opacity:0}
+  30%{opacity:1}
+  100%{opacity:0}
+}
+.container{
+  max-width:680px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+  margin-top:70px;
+}
+h1{text-align:center;font-size:1.8rem;margin-bottom:4px;letter-spacing:4px;transition:color .4s,text-shadow .4s}
+body.sin-mode h1{color:#8b0000;text-shadow:0 0 10px rgba(139,0,0,.8),0 0 30px rgba(139,0,0,.5),0 0 60px rgba(139,0,0,.3),2px 2px 4px rgba(0,0,0,.8);position:relative}
+body.sin-mode h1::before{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:80%;height:2px;background:linear-gradient(90deg,transparent,#8b0000,transparent);box-shadow:0 0 8px rgba(139,0,0,.6)}
+body.vir-mode h1{color:#8a6e2f;text-shadow:0 0 10px rgba(200,180,120,.8),0 0 30px rgba(200,180,120,.5),0 0 60px rgba(200,180,120,.3),0 2px 4px rgba(0,0,0,.1);position:relative}
+body.vir-mode h1::before{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:80%;height:2px;background:linear-gradient(90deg,transparent,#c8a060,transparent);box-shadow:0 0 8px rgba(200,180,120,.6)}
+.subtitle{text-align:center;margin-bottom:24px;font-size:.82rem;letter-spacing:2px;transition:color .4s}
+body.sin-mode .subtitle{color:#6b5b50}
+body.vir-mode .subtitle{color:#7a7060}
+/* 右上角复用按钮：人格解析 / 返回测试 ——跟随主题颜色 */
+.top-right-btn{
+  position:fixed;
+  top:16px;
+  right:16px;
+  z-index:100;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:0.9rem;
+  transition:0.3s;
+  backdrop-filter:blur(8px);
+}
+/* 七宗罪：红色按钮 */
+body.sin-mode .top-right-btn{
+  background:rgba(120,0,0,.35);
+  border:1px solid rgba(180,0,0,.6);
+  color:#ffb8b8;
+}
+body.sin-mode .top-right-btn:hover{
+  background:rgba(150,0,0,.55);
+  box-shadow:0 0 16px rgba(180,0,0,.6);
+}
+/* 七美德：金黄色按钮 */
+body.vir-mode .top-right-btn{
+  background:rgba(190,145,40,.35);
+  border:1px solid rgba(220,175,50,.6);
+  color:#ffe8a8;
+}
+body.vir-mode .top-right-btn:hover{
+  background:rgba(210,160,45,.55);
+  box-shadow:0 0 16px rgba(220,170,40,.6);
+}
+.theme-btn{
+  position:fixed;top:16px;left:16px;z-index:100;
+  width:44px;height:44px;border-radius:50%;
+  transition:all .3s;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1.4rem;backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);
+}
+/* 解析模式、结果页面隐藏左上角主题切换按钮 */
+body.parse-mode .theme-btn,
+body.show-result-page .theme-btn{
+  display:none;
+}
+body.sin-mode .theme-btn{background:rgba(20,10,10,.8);color:#8b0000}
+body.sin-mode .theme-btn:hover{background:rgba(60,10,10,.8);box-shadow:0 0 14px rgba(139,0,0,.5)}
+body.vir-mode .theme-btn{background:rgba(255,250,240,.85);color:#c8a060}
+body.vir-mode .theme-btn:hover{background:rgba(255,255,250,.9);box-shadow:0 0 14px rgba(200,180,120,.5)}
+.card{border-radius:12px;padding:20px;margin-bottom:12px;transition:all .4s}
+body.sin-mode .card{background:rgba(20,10,10,.6);backdrop-filter:blur(8px);border:1px solid rgba(139,0,0,.25);box-shadow:0 2px 16px rgba(0,0,0,.5)}
+body.sin-mode .card:hover{border-color:rgba(139,0,0,.45)}
+body.vir-mode .card{background:rgba(255,250,240,.7);backdrop-filter:blur(8px);border:1px solid rgba(200,180,120,.3);box-shadow:0 2px 16px rgba(0,0,0,.06)}
+body.vir-mode .card:hover{border-color:rgba(200,180,120,.5)}
+.q-title{font-weight:600;margin-bottom:10px;font-size:.95rem;border-left:3px solid;padding-left:10px;transition:color .4s,border-color .4s}
+body.sin-mode .q-title{color:#d4c8c0;border-color:#8b0000}
+body.vir-mode .q-title{color:#3a3530;border-color:#8a6e2f}
+.options{display:flex;flex-direction:column;gap:7px}
+.option{display:flex;align-items:center;border-radius:8px;padding:9px 12px;cursor:pointer;transition:.25s;font-size:.9rem;border:1.5px solid}
+body.sin-mode .option{background:rgba(40,15,15,.5);border-color:rgba(139,0,0,.15);color:#a89890}
+body.sin-mode .option:hover{background:rgba(60,10,10,.5);border-color:rgba(139,0,0,.4);color:#d4c8c0}
+body.sin-mode .option.selected{border-color:#8b0000;background:rgba(139,0,0,.12);color:#e0d0c8;box-shadow:0 0 12px rgba(139,0,0,.2)}
+body.vir-mode .option{background:rgba(255,250,240,.6);border-color:rgba(200,180,120,.25);color:#5a5040}
+body.vir-mode .option:hover{background:rgba(255,250,240,.8);border-color:rgba(200,180,120,.45);color:#3a3530}
+body.vir-mode .option.selected{border-color:#8a6e2f;background:rgba(200,180,120,.15);color:#3a3530;box-shadow:0 0 12px rgba(200,180,120,.2)}
+.option input{display:none}
+.radio{width:14px;height:14px;border-radius:50%;margin-right:10px;flex-shrink:0;position:relative;transition:.25s}
+body.sin-mode .radio{border:2px solid #5a4a42}
+body.sin-mode .option.selected .radio{border-color:#8b0000}
+body.sin-mode .option.selected .radio::after{content:'';position:absolute;top:2px;left:2px;width:6px;height:6px;border-radius:50%;background:#8b0000;box-shadow:0 0 6px rgba(139,0,0,.6)}
+body.vir-mode .radio{border:2px solid #a09880}
+body.vir-mode .option.selected .radio{border-color:#8a6e2f}
+body.vir-mode .option.selected .radio::after{content:'';position:absolute;top:2px;left:2px;width:6px;height:6px;border-radius:50%;background:#8a6e2f;box-shadow:0 0 6px rgba(200,180,120,.5)}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:.25s;margin-top:16px;letter-spacing:2px}
+body.sin-mode .btn-primary{background:linear-gradient(135deg,#8b0000,#5c0000);color:#d4c8c0;border:1px solid rgba(139,0,0,.4);box-shadow:0 4px 16px rgba(139,0,0,.3)}
+body.sin-mode .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(139,0,0,.5)}
+body.vir-mode .btn-primary{background:linear-gradient(135deg,#c8a060,#a08040);color:#fff;border:1px solid rgba(200,180,120,.5);box-shadow:0 4px 16px rgba(200,180,120,.3)}
+body.vir-mode .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(200,180,120,.5)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+body.sin-mode .btn-secondary{background:rgba(40,15,15,.6);color:#c8a0a0;border:1px solid rgba(139,0,0,.3);margin-top:10px}
+body.sin-mode .btn-secondary:hover{background:rgba(60,20,20,.6)}
+body.vir-mode .btn-secondary{background:rgba(255,250,240,.6);color:#6a6050;border:1px solid rgba(200,180,120,.3);margin-top:10px}
+body.vir-mode .btn-secondary:hover{background:rgba(255,250,240,.8)}
+.progress-wrap{margin:16px 0}
+.progress-bar{height:4px;border-radius:2px;background:rgba(80,80,80,.2);overflow:hidden}
+.progress-fill{height:100%;transition:.3s ease}
+body.sin-mode .progress-fill{background:#8b0000}
+body.vir-mode .progress-fill{background:#c8a060}
+.progress-text{font-size:0.8rem;margin-top:4px;text-align:right}
+/* 结果页样式 */
+.result-card{padding:24px;border-radius:14px;margin-top:20px}
+body.sin-mode .result-card{background:rgba(20,10,10,.65);border:1px solid rgba(139,0,0,.3)}
+body.vir-mode .result-card{background:rgba(255,250,240,.75);border:1px solid rgba(200,180,120,.4)}
+.result-title{text-align:center;font-size:1.3rem;margin-bottom:16px;font-weight:bold}
+.dim-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(128,128,128,.25)}
+.dim-name{font-size:0.95rem}
+.dim-score{font-weight:bold}
+.desc-text{margin-top:18px;line-height:1.7;font-size:0.92rem}
+/* 人格总结卡片，新格式 */
+.personality-card{
+  margin-top:16px;padding:18px;border-radius:12px;
+  border:1px solid;
+  white-space:pre-line;
+  line-height:1.8;
+}
+body.sin-mode .personality-card{
+  background:rgba(139,0,0,.12);
+  border-color:rgba(139,0,0,.4);
+  box-shadow:0 0 18px rgba(139,0,0,.25);
+}
+body.vir-mode .personality-card{
+  background:rgba(200,180,120,.15);
+  border-color:rgba(200,180,120,.45);
+  box-shadow:0 0 18px rgba(200,180,120,.25);
+}
+/* 视频样式 */
+.video-box{margin-top:16px;border-radius:10px;overflow:hidden}
+video{width:100%;display:block;object-fit:cover}
+.video-tip{
+  text-align:center;
+  margin-top:8px;
+  font-size:0.9rem;
+  line-height:2.2;
+}
+body.sin-mode .video-tip{
+  color:#c8c0b8;
+}
+body.vir-mode .video-tip{
+  color:#3a3530;
+}
+.flex-1{
+  flex:1;
+}
+.btn-row{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+}
+/* 切换测试按钮，答题页面默认隐藏 */
+#switchOtherTestBtn{
+  display:none;
+}
+body.show-result-page #switchOtherTestBtn{
+  display:block;
+}
+/* --------人格解析页面视图样式【删掉独立返回按钮】-------- */
+#parseView{
+  display:none;
+  max-width:720px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+  margin-top:70px;
+  padding-bottom:40px;
+}
+</style>
+</head>
+<body class="sin-mode">
+<canvas id="rainCanvas"></canvas>
+<div id="burstLayer"></div>
+<div class="top-right-btn" id="openParseBtn">人格解析</div>
+<div class="theme-btn" id="themeBtn">😇</div>
+<!-- 测试答题视图 -->
+<div class="container" id="testView">
+  <h1 id="mainTitle">七宗罪</h1>
+  <div class="subtitle" id="subTitle">击左上角天使切换美德人格测试</div>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-text" id="progressText">0 / 0</div>
+  </div>
+  <div id="qBox"></div>
+  <div id="resultBox" style="display:none"></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary flex-1" id="prevBtn">上一题</button>
+    <button class="btn btn-primary flex-1" id="nextBtn" disabled>下一题</button>
+  </div>
+  <button class="btn btn-secondary" id="switchOtherTestBtn"></button>
+  <button class="btn btn-secondary" id="restartBtn">重新开始</button>
+</div>
+<!-- 人格解析视图 -->
+<div id="parseView">
+  <div class="sin-group-wrap">
+    <div class="sin-group-title">七宗罪</div>
+    <div id="sinParseWrap"></div>
+  </div>
+  <div class="vir-group-wrap">
+    <div class="vir-group-title">七美德</div>
+    <div id="virParseWrap"></div>
+  </div>
+</div>
+<div class="theme-transition" id="trans"></div>
+<script>
+// 洗牌
+function shuffleArray(arr){
+  const temp = [...arr];
+  for(let i = temp.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [temp[i], temp[j]] = [temp[j], temp[i]];
+  }
+  return temp;
+}
+// =========视频滑出视口自动暂停=========
+const videoObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const vid = entry.target;
+    if(!entry.isIntersecting){
+      if(!vid.paused){
+        vid.pause();
+      }
+    }
+  })
+},{threshold:0.05});
+function observeAllVideo(){
+  document.querySelectorAll("video").forEach(v=>{
+    videoObserver.observe(v);
+  })
+}
+const canvas = document.getElementById('rainCanvas');
+const ctx = canvas.getContext('2d');
+let rainList = [];
+const rainCount = 45;
+let isVirtue = false;
+let singleRainWord = "";
+const sinWords = ["傲慢","嫉妒","暴怒","懒惰","贪婪","暴食","色欲"]
+const virWords = ["谦卑","宽容","耐心","勤勉","慷慨","节制","贞洁"]
+const parseAllWords = ["傲慢","嫉妒","暴怒","懒惰","贪婪","暴食","色欲","谦卑","宽容","耐心","勤勉","慷慨","节制","贞洁"]
+let rainWordPool = sinWords;
+
+class RainItem{
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    const pool = singleRainWord ? [singleRainWord] : rainWordPool;
+    this.word = pool[Math.floor(Math.random()*pool.length)];
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random()*-canvas.height;
+    this.speed = Math.random()*2+1;
+    this.size = Math.random()*24+12;
+    this.opacity = Math.random()*0.4+0.3;
+  }
+  update(){
+    this.y += this.speed;
+    if(this.y>canvas.height){
+      this.reset();
+    }
+  }
+  draw(){
+    ctx.save();
+    if(document.body.classList.contains("parse-mode")){
+      const r = Math.floor(Math.random()*180+75);
+      const g = Math.floor(Math.random()*180+75);
+      const b = Math.floor(Math.random()*220+35);
+      ctx.fillStyle = `rgba(${r},${g},${b},${this.opacity})`;
+      ctx.shadowColor=`rgb(${r},${g},${b})`;
+    }else if(isVirtue){
+      //七美德浅色背景：深金色，看得清
+      ctx.fillStyle = `rgba(148,108,0,${this.opacity})`;
+      ctx.shadowColor="#946c00";
+    }else{
+      //七宗罪深色背景：红色
+      ctx.fillStyle = `rgba(180,0,0,${this.opacity})`;
+      ctx.shadowColor="#990000";
+    }
+    ctx.shadowBlur=12;
+    ctx.font = this.size+"px Microsoft YaHei";
+    ctx.fillText(this.word,this.x,this.y);
+    ctx.restore();
+  }
+}
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize',resizeCanvas);
+function initRain(){
+  rainList=[];
+  for(let i=0;i<rainCount;i++){
+    rainList.push(new RainItem());
+  }
+}
+function animateRain(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  rainList.forEach(item=>{
+    item.update();
+    item.draw();
+  })
+  requestAnimationFrame(animateRain);
+}
+initRain();
+animateRain();
+
+// 视图切换DOM
+const testView = document.getElementById("testView");
+const parseView = document.getElementById("parseView");
+const openParseBtn = document.getElementById("openParseBtn");
+const sinParseWrap = document.getElementById("sinParseWrap");
+const virParseWrap = document.getElementById("virParseWrap");
+const switchOtherTestBtn = document.getElementById("switchOtherTestBtn");
+
+// =========人格解析完整元数据=========
+const sinMetaParse = [
+  {
+    name:"傲慢",
+    enName:"Pride",
+    being:"路西法 Lucifer",
+    typeLabel:"恶魔",
+    desc:"路西法曾是天国荣光最高的晨星天使，拥有出众的力量与美貌。他内心滋生狂妄，不愿臣服，妄图和至高者平起平坐，带领天使反叛天国，最终坠落。傲慢被视作万恶之源，本质是过度抬高自我、蔑视他人，一切恶行很多都源于这份自大。",
+    video:"aoman.mp4"
+  },
+  {
+    name:"色欲",
+    enName:"Lust",
+    being:"阿斯莫德 Asmodeus",
+    typeLabel:"恶魔",
+    desc:"阿斯莫德为情欲之恶魔。它不单单指代肉体情欲，泛指被感官欲望支配，失去理性约束，为追逐短暂欢愉放弃底线、忠诚与原则，任由欲望主导自身选择。",
+    video:"seyu.mp4"
+  },
+  {
+    name:"暴食",
+    enName:"Gluttony",
+    being:"别西卜 Beelzebub",
+    typeLabel:"恶魔",
+    desc:"别西卜又称苍蝇之王。暴食不只是贪吃，核心是对享乐无休止的索取，不止食物，也包括无休止的消遣放纵，一味沉溺感官享受，没有边界，不懂适可而止。",
+    video:"baoshi.mp4"
+  },
+  {
+    name:"贪婪",
+    enName:"Greed",
+    being:"玛门 Mammon",
+    typeLabel:"恶魔",
+    desc:"玛门是财富与贪欲的化身。贪婪的内核永远是永不满足，即便已经拥有不少，依旧不停追逐更多金钱、地位、权力，执着于占有，不愿分享，把物质与权势当成唯一追求。",
+    video:"tanlan.mp4"
+  },
+  {
+    name:"懒惰",
+    enName:"Sloth",
+    being:"贝尔芬格 Belphegor",
+    typeLabel:"恶魔",
+    desc:"这里的懒惰不只是身体偷懒，更多是精神层面的怠惰麻木。逃避自身该承担的责任，放弃自我精进，不愿向善，明明有能力行动，却选择消极沉沦、摆烂逃避。",
+    video:"landuo.mp4"
+  },
+  {
+    name:"嫉妒",
+    enName:"Envy",
+    being:"利维坦 Leviathan",
+    typeLabel:"恶魔",
+    desc:"利维坦象征嫉妒。看见他人拥有天赋、好运、幸福时，没有祝福，反而心生怨恨，盼望对方失去所拥有的一切。嫉妒会慢慢侵蚀内心，把别人的光芒当成自己的痛苦。",
+    video:"jidu.mp4"
+  },
+  {
+    name:"暴怒",
+    enName:"Wrath",
+    being:"撒旦 Satan",
+    typeLabel:"恶魔",
+    desc:"暴怒是失去节制的怒火与复仇执念。被怨恨裹挟，一旦遭遇冲突就被情绪掌控，一心只想报复、摧毁对方，放弃冷静思考与宽恕，选择用伤害、毁灭宣泄怒火。",
+    video:"baonu.mp4"
+  }
+];
+
+const virMetaParse = [
+  {
+    name:"谦卑",
+    enName:"Humility",
+    being:"米迦勒 Michael",
+    typeLabel:"天使",
+    desc:"米迦勒是天国大天使长，代表谦卑。谦卑不是自卑、软弱，而是清楚自身的局限，明白自身力量的来源，不盲目自大，尊重他人，主动顺服秩序，和路西法的傲慢完全对立。",
+    video:"qianbei.mp4"
+  },
+  {
+    name:"贞洁",
+    enName:"Chastity",
+    being:"加百列 Gabriel",
+    typeLabel:"天使",
+    desc:"加百列是传递喜讯的天使。贞洁不等于压抑欲望，核心是守住本心，管控自身的情欲，不被诱惑裹挟，坚守专一与内心纯净，以此对抗阿斯莫德的放纵。",
+    video:"zhenjie.mp4"
+  },
+  {
+    name:"节制",
+    enName:"Temperance",
+    being:"拉斐尔 Raphael",
+    typeLabel:"天使",
+    desc:"拉斐尔是治愈天使。节制代表懂得把握分寸，对享乐、欲望设立边界，按需取舍，不沉溺、不挥霍，保持理性平衡，用来对抗别西卜无度的放纵。",
+    video:"jiezhi.mp4"
+  },
+  {
+    name:"慷慨",
+    enName:"Charity",
+    being:"梅塔特隆 Metatron",
+    typeLabel:"天使",
+    desc:"梅塔特隆是记录天使。慷慨不只是施舍财物，是不执着于独占，愿意分享自己所拥有的，体恤他人的难处，心怀给予之心，对抗玛门无休止的占有欲。",
+    video:"kangkai.mp4"
+  },
+  {
+    name:"勤勉",
+    enName:"Diligence",
+    being:"桑德枫 Sandalphon",
+    typeLabel:"天使",
+    desc:"桑德枫是歌唱天使。勤勉代表主动承担本分，持续精进自我，不逃避该做的事，积极行动、坚持向善，拒绝消极躺平，对抗贝尔芬格的精神怠惰。",
+    video:"qinmian.mp4"
+  },
+  {
+    name:"仁爱",
+    enName:"Kindness",
+    being:"沙利叶 Sariel",
+    typeLabel:"天使",
+    desc:"沙利叶是守护灵魂的天使。仁爱是发自内心的善意，包容他人，能够欣赏别人的闪光点，愿意祝福他人，不因为别人的好运心生怨怼，对抗利维坦的嫉妒。",
+    video:"renai.mp4"
+  },
+  {
+    name:"耐心",
+    enName:"Patience",
+    being:"乌列尔 Uriel",
+    typeLabel:"天使",
+    desc:"乌列尔是智慧天使。耐心代表情绪稳定，遇到挫折、伤害时不冲动爆发，愿意包容过错、等候时机，保有宽恕之心，克制冲动的报复欲，对抗撒旦的暴怒。",
+    video:"naixin.mp4"
+  }
+];
+
+//渲染人格解析卡片
+function renderParseCards(){
+  sinParseWrap.innerHTML = sinMetaParse.map(m=>`
+  <div class="sin-parse-card">
+    <video controls playsinline src="${m.video}"></video>
+    <div class="parse-text-block">人格：${m.name} ${m.enName}
+恶魔：${m.being}
+解析：${m.desc}</div>
+  </div>`).join("");
+
+  virParseWrap.innerHTML = virMetaParse.map(m=>`
+  <div class="vir-parse-card">
+    <video controls playsinline src="${m.video}"></video>
+    <div class="parse-text-block">人格：${m.name} ${m.enName}
+天使：${m.being}
+解析：${m.desc}</div>
+  </div>`).join("");
+  observeAllVideo();
+}
+
+openParseBtn.onclick = function(){
+  if(document.body.classList.contains("parse-mode")){
+    parseView.style.display = "none";
+    testView.style.display = "block";
+    document.body.classList.remove("parse-mode");
+    openParseBtn.innerText = "人格解析";
+    rainWordPool = isVirtue ? virWords : sinWords;
+    singleRainWord = "";
+    rainList.forEach(r=>r.reset());
+    window.scrollTo(0,0);
+  }else{
+    renderParseCards();
+    document.body.classList.add("parse-mode");
+    openParseBtn.innerText = "返回测试";
+    rainWordPool = parseAllWords;
+    singleRainWord = null;
+    rainList.forEach(r=>r.reset());
+    testView.style.display = "none";
+    parseView.style.display = "block";
+    window.scrollTo(0,0);
+  }
+}
+
+const themeBtn = document.getElementById('themeBtn');
+const body = document.body;
+const mainTitle = document.getElementById('mainTitle');
+const subTitle = document.getElementById('subTitle');
+themeBtn.onclick = function(){
+  isVirtue = !isVirtue;
+  if(isVirtue){
+    body.className = "vir-mode";
+    themeBtn.innerText = "👿";
+    mainTitle.innerText = "七美德";
+    subTitle.innerText = "击左上角恶魔切换罪性人格测试";
+    currentPool = shuffleArray([...virPool]);
+    currentMeta = virMeta;
+    rainWordPool = virWords;
+  }else{
+    body.className = "sin-mode";
+    themeBtn.innerText = "😇";
+    mainTitle.innerText = "七宗罪";
+    subTitle.innerText = "击左上角天使切换美德人格测试";
+    currentPool = shuffleArray([...sinPool]);
+    currentMeta = sinMeta;
+    rainWordPool = sinWords;
+  }
+  rainList.forEach(r=>r.reset());
+  answers = [];
+  currentQ = 0;
+  singleRainWord = "";
+  qBox.style.display = 'block';
+  resultBox.style.display = 'none';
+  nextBtn.style.display = 'block';
+  prevBtn.style.display = 'block';
+  body.classList.remove("show-result-page");
+  renderQuestion();
+  nextBtn.disabled = true;
+}
+
+switchOtherTestBtn.onclick = function(){
+  isVirtue = !isVirtue;
+  if(isVirtue){
+    body.className = "vir-mode";
+    themeBtn.innerText = "👿";
+    mainTitle.innerText = "七美德";
+    subTitle.innerText = "击左上角恶魔切换罪性人格测试";
+    currentPool = shuffleArray([...virPool]);
+    currentMeta = virMeta;
+    rainWordPool = virWords;
+  }else{
+    body.className = "sin-mode";
+    themeBtn.innerText = "😇";
+    mainTitle.innerText = "七宗罪";
+    subTitle.innerText = "击左上角天使切换美德人格测试";
+    currentPool = shuffleArray([...sinPool]);
+    currentMeta = sinMeta;
+    rainWordPool = sinWords;
+  }
+  rainList.forEach(r=>r.reset());
+  answers = [];
+  currentQ = 0;
+  singleRainWord = "";
+  qBox.style.display = 'block';
+  resultBox.style.display = 'none';
+  nextBtn.style.display = 'block';
+  prevBtn.style.display = 'block';
+  body.classList.remove("show-result-page");
+  renderQuestion();
+  nextBtn.disabled = true;
+}
+
+function burstWords(word){
+  const layer = document.getElementById("burstLayer");
+  layer.innerHTML="";
+  for(let i=0;i<22;i++){
+    const el = document.createElement("div");
+    el.className="burst-text";
+    el.innerText = word;
+    el.style.color = isVirtue ? "#946c00" : "#bb0000";
+    const angle = Math.random()*Math.PI*2;
+    const dist = 80 + Math.random()*220;
+    el.style.setProperty("--tx",Math.cos(angle)*dist+"px");
+    el.style.setProperty("--ty",Math.sin(angle)*dist+"px");
+    el.style.left = "50%";
+    el.style.top = "50%";
+    el.style.fontSize = (Math.random()*22+14)+"px";
+    layer.appendChild(el);
+  }
+  setTimeout(()=>layer.innerHTML="",1900);
+}
+const opts = ["非常不同意","不同意","中立","同意","非常同意"]
+
+//答题测试页面元数据
+const sinMeta = [
+  {name:"傲慢",video:"aoman.mp4"},
+  {name:"嫉妒",video:"jidu.mp4"},
+  {name:"暴怒",video:"baonu.mp4"},
+  {name:"懒惰",video:"landuo.mp4"},
+  {name:"贪婪",video:"tanlan.mp4"},
+  {name:"暴食",video:"baoshi.mp4"},
+  {name:"色欲",video:"seyu.mp4"},
+]
+const virMeta = [
+  {name:"谦卑",video:"qianbei.mp4"},
+  {name:"仁爱",video:"renai.mp4"},
+  {name:"宽容",video:"naixin.mp4"},
+  {name:"勤勉",video:"qinmian.mp4"},
+  {name:"慷慨",video:"kangkai.mp4"},
+  {name:"节制",video:"jiezhi.mp4"},
+  {name:"贞洁",video:"zhenjie.mp4"},
+]
+
+//原始七宗罪题目
+const sinPool = [
+  {title:"我常常觉得自己的看法比大多数人更高明", opts, dim:0, isReverse:false},
+  {title:"很难坦然承认自己犯错，习惯找借口", opts, dim:0, isReverse:false},
+  {title:"别人否定我的想法，内心会觉得被冒犯", opts, dim:0, isReverse:false},
+  {title:"我乐于承认别人的见解比我更加高明", opts, dim:0, isReverse:true},
+  {title:"取得成绩时，希望得到别人的赞美与关注", opts, dim:0, isReverse:false},
+  {title:"我不会刻意追求他人的夸奖与崇拜", opts, dim:0, isReverse:true},
+
+  {title:"看到身边人过得比我好，心里会隐隐不舒服", opts, dim:1, isReverse:false},
+  {title:"别人拥有我没有的东西，会羡慕又不甘", opts, dim:1, isReverse:false},
+  {title:"我经常不自觉对比自己和他人的生活、成就", opts, dim:1, isReverse:false},
+  {title:"他人获得夸奖时，我可以发自内心为之高兴", opts, dim:1, isReverse:true},
+  {title:"别人的好运，会让我感到失落", opts, dim:1, isReverse:false},
+  {title:"看到熟人成功，我很容易真心送上祝福", opts, dim:1, isReverse:true},
+
+  {title:"事情不顺时，我很容易火气上头", opts, dim:2, isReverse:false},
+  {title:"受委屈之后，我会长时间记挂，难以释怀", opts, dim:2, isReverse:false},
+  {title:"一点小事就会勾起我的烦躁和怒火", opts, dim:2, isReverse:false},
+  {title:"遭遇不公，我也可以较快平复内心情绪", opts, dim:2, isReverse:true},
+  {title:"生气时容易说出伤人的话", opts, dim:2, isReverse:false},
+  {title:"就算被冒犯，我也很少长时间怀恨在心", opts, dim:2, isReverse:true},
+
+  {title:"明明有事要做，还是优先选择躺平休息", opts, dim:3, isReverse:false},
+  {title:"任务不紧急，我就容易一拖再拖", opts, dim:3, isReverse:false},
+  {title:"需要付出努力的事，我常常想办法逃避", opts, dim:3, isReverse:false},
+  {title:"即使事情枯燥，我也愿意坚持完成", opts, dim:3, isReverse:true},
+  {title:"能交给别人做的事，我不想自己动手", opts, dim:3, isReverse:false},
+  {title:"我愿意主动承担属于自己的辛苦任务", opts, dim:3, isReverse:true},
+
+  {title:"我总希望拥有更多财富、资源和机会", opts, dim:4, isReverse:false},
+  {title:"看到有利可图的机会，不想放过", opts, dim:4, isReverse:false},
+  {title:"拥有的东西越多，我才越有安全感", opts, dim:4, isReverse:false},
+  {title:"我满足于自己现有的所得，不贪求更多", opts, dim:4, isReverse:true},
+  {title:"分享资源给别人，我会觉得吃亏", opts, dim:4, isReverse:false},
+  {title:"我乐于把自己拥有的东西分享给他人", opts, dim:4, isReverse:true},
+
+  {title:"我容易沉溺美食、娱乐，很难及时停下", opts, dim:5, isReverse:false},
+  {title:"压力大时，我会靠吃喝、刷东西放纵自己", opts, dim:5, isReverse:false},
+  {title:"明知道过量不好，还是控制不住享受", opts, dim:5, isReverse:false},
+  {title:"面对享乐诱惑，我可以做到适可而止", opts, dim:5, isReverse:true},
+  {title:"很难克制自己对享受的渴望", opts, dim:5, isReverse:false},
+  {title:"我不会为了短暂快感耽误重要正事", opts, dim:5, isReverse:true},
+
+  {title:"我容易被他人吸引，产生强烈的心动幻想", opts, dim:6, isReverse:false},
+  {title:"看到有吸引力的人，会忍不住遐想", opts, dim:6, isReverse:false},
+  {title:"我很难在暧昧里守住边界", opts, dim:6, isReverse:false},
+  {title:"即便面对吸引力，我也能够守住边界", opts, dim:6, isReverse:true},
+  {title:"欲望上来的时候，理智不容易压住", opts, dim:6, isReverse:false},
+  {title:"我可以克制冲动，优先遵从理性判断", opts, dim:6, isReverse:true},
+]
+
+//原始七美德题目
+const virPool = [
+  {title:"我愿意承认自己有不懂、做不好的地方", opts, dim:0, isReverse:false},
+  {title:"就算做得不错，也不会刻意炫耀自己", opts, dim:0, isReverse:false},
+  {title:"别人提出合理批评，我可以平静接纳", opts, dim:0, isReverse:false},
+  {title:"遭到批评时，我内心很难接受不同意见", opts, dim:0, isReverse:true},
+  {title:"取得成就时，我明白运气和他人帮助也很重要", opts, dim:0, isReverse:false},
+  {title:"做出成绩，我更倾向认为完全源于自身能力", opts, dim:0, isReverse:true},
+
+  {title:"看到别人收获幸福，我发自内心替他高兴", opts, dim:1, isReverse:false},
+  {title:"我很少拿自己和别人比较", opts, dim:1, isReverse:false},
+  {title:"他人拥有好东西，我更多是祝福而非不甘", opts, dim:1, isReverse:false},
+  {title:"旁人过得比我好，我心中难免产生失落", opts, dim:1, isReverse:true},
+  {title:"别人得到夸奖，我不会心生嫉妒", opts, dim:1, isReverse:false},
+  {title:"看到他人获得荣誉，我会觉得本该属于我", opts, dim:1, isReverse:true},
+
+  {title:"遇到不顺，我不容易发火", opts, dim:2, isReverse:false},
+  {title:"被人冒犯后，我可以慢慢放下，不记仇", opts, dim:2, isReverse:false},
+  {title:"别人犯错，我愿意给对方包容的空间", opts, dim:2, isReverse:false},
+  {title:"受到委屈，我会长久记住这份不愉快", opts, dim:2, isReverse:true},
+  {title:"争执时我尽量避免说出伤人的话", opts, dim:2, isReverse:false},
+  {title:"生气的时候，我很难控制自己说出重话", opts, dim:2, isReverse:true},
+
+  {title:"定下目标，我可以持续行动，不轻易摆烂", opts, dim:3, isReverse:false},
+  {title:"繁琐枯燥的任务，我也能踏实做完", opts, dim:3, isReverse:false},
+  {title:"我会主动安排事情，很少被动拖延", opts, dim:3, isReverse:false},
+  {title:"没有外界督促，我就容易偷懒搁置事情", opts, dim:3, isReverse:true},
+  {title:"遇到困难，优先想办法而不是逃避", opts, dim:3, isReverse:false},
+  {title:"碰到难题，我第一想法就是想躲开不做", opts, dim:3, isReverse:true},
+
+  {title:"有富余的资源，我愿意分享给需要的人", opts, dim:4, isReverse:false},
+  {title:"帮助别人，不一定期待对方回报我", opts, dim:4, isReverse:false},
+  {title:"看到他人难处，我愿意伸出援手", opts, dim:4, isReverse:false},
+  {title:"帮助其他人之前，我优先考虑自己得失", opts, dim:4, isReverse:true},
+  {title:"在合适的时候，我愿意让步成全别人", opts, dim:4, isReverse:false},
+  {title:"牺牲自己利益成全他人，我不太愿意", opts, dim:4, isReverse:true},
+
+  {title:"吃喝玩乐、刷娱乐内容，我懂得适时收手", opts, dim:5, isReverse:false},
+  {title:"面对诱惑，我有能力守住分寸", opts, dim:5, isReverse:false},
+  {title:"我不会任由欲望牵着自己走", opts, dim:5, isReverse:false},
+  {title:"好玩的事物出现，我很难管住自己", opts, dim:5, isReverse:true},
+  {title:"享受归享受，不会耽误重要的正事", opts, dim:5, isReverse:false},
+  {title:"玩乐上头，经常把该做的事情抛之脑后", opts, dim:5, isReverse:true},
+
+  {title:"我重视感情里的忠诚，守住边界", opts, dim:6, isReverse:false},
+  {title:"不会轻易被新鲜感冲昏头脑", opts, dim:6, isReverse:false},
+  {title:"有好感时，我懂得克制冲动", opts, dim:6, isReverse:false},
+  {title:"遇到有吸引力的人，我很难保持距离", opts, dim:6, isReverse:true},
+  {title:"尊重他人，不随意越界", opts, dim:6, isReverse:false},
+  {title:"在亲密关系里，我愿意保持理性专一", opts, dim:6, isReverse:false},
+]
+
+let currentPool;
+let currentMeta;
+let answers = [];
+let currentQ = 0;
+const qBox = document.getElementById('qBox');
+const resultBox = document.getElementById('resultBox');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const restartBtn = document.getElementById('restartBtn');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+
+function updateNavButton(){
+  prevBtn.disabled = (currentQ === 0);
+  if(currentQ >= currentPool.length -1){
+    nextBtn.innerText = "提交查看结果";
+  }else{
+    nextBtn.innerText = "下一题";
+  }
+}
+
+function renderQuestion(){
+  const q = currentPool[currentQ];
+  qBox.innerHTML = `
+    <div class="card">
+      <div class="q-title">${q.title}</div>
+      <div class="options">
+        ${q.opts.map((opt,i)=>`
+          <label class="option ${answers[currentQ]===i?'selected':''}">
+            <input type="radio" name="q${currentQ}" value="${i}" ${answers[currentQ]===i?'checked':''}>
+            <span class="radio"></span>
+            ${opt}
+          </label>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  document.querySelectorAll('.option').forEach((el,idx)=>{
+    el.onclick = ()=>{
+      answers[currentQ] = idx;
+      document.querySelectorAll('.option').forEach(e=>e.classList.remove('selected'));
+      el.classList.add('selected');
+      nextBtn.disabled = false;
+    }
+  })
+  updateProgress();
+  updateNavButton();
+}
+function updateProgress(){
+  const total = currentPool.length;
+  const done = answers.filter(x=>x!==undefined).length;
+  progressFill.style.width = `${done/total*100}%`;
+  progressText.innerText = `${currentQ+1} / ${total}`;
+}
+
+function calcResult(){
+  const scores = [0,0,0,0,0,0,0];
+  answers.forEach((v,i)=>{
+    const item = currentPool[i];
+    let scoreVal = v;
+    if(item.isReverse){
+      scoreVal = 4 - v;
+    }
+    scores[item.dim] += (scoreVal+1);
+  })
+  return scores;
+}
+
+function checkCareless(){
+  const filled = answers.filter(x=>x!==undefined);
+  if(filled.length < 4) return false;
+  const first = filled[0];
+  return filled.every(x=>x===first);
+}
+
+function showResult(){
+  if(checkCareless()){
+    alert("检测到你全部选择同一个选项，建议重新认真作答，测试结果仅供娱乐。");
+  }
+  const scores = calcResult();
+  let html = `<div class="result-card">
+    <div class="result-title">你的测评结果</div>`;
+  scores.forEach((s,i)=>{
+    html += `<div class="dim-item"><span class="dim-name">${currentMeta[i].name}</span><span class="dim-score">${s}</span></div>`
+  })
+  html += `<div class="desc-text">根据你答题分数判定你的人格为：</div>`;
+  const maxIdx = scores.indexOf(Math.max(...scores));
+
+  let fullData;
+  if(isVirtue){
+    fullData = virMetaParse[maxIdx];
+  }else{
+    fullData = sinMetaParse[maxIdx];
+  }
+
+  singleRainWord = fullData.name;
+  rainList.forEach(r=>r.reset());
+  burstWords(fullData.name);
+
+  let resultTextBlock;
+  if(isVirtue){
+    resultTextBlock = `人格：${fullData.name} ${fullData.enName}
+天使：${fullData.being}
+解析：${fullData.desc}`;
+  }else{
+    resultTextBlock = `人格：${fullData.name} ${fullData.enName}
+恶魔：${fullData.being}
+解析：${fullData.desc}`;
+  }
+
+  html += `
+    <div class="personality-card">${resultTextBlock}</div>
+    <div class="video-box">
+      <video controls autoplay playsinline src="${fullData.video}"></video>
+    </div>
+<div class="video-tip" style="line-height:2.2;">
+    <div style="color:#ff3333;font-weight:bold;font-size:18px;text-shadow:0 0 8px #ff4444;margin-bottom:12px;">↓↓⚠️注意⚠️↓↓</div>
+
+    <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:42px;height:42px;border-radius:50%;border:2px solid #888;overflow:hidden;flex-shrink:0;">
+            <img src="https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oMnAH4AgeAENKOBFAG7S8cENQIBELBAewIAIKf.jpeg?from=2956013662" alt="也不晚头像" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        </div>
+        <span>测试网站创作者：也不晚🌹</span>
+    </div>
+    抖音号：<a href="https://www.iesdouyin.com/share/user/MS4wLjABAAAAPQZzvkUmohxdq4e-r2gyeZ6DB5EFTljJSGrKQyvAEbM?sec_uid=MS4wLjABAAAAPQZzvkUmohxdq4e-r2gyeZ6DB5EFTljJSGrKQyvAEbM&from_ssr=1&from_aid=1128&u_code=19chmb503&did=MS4wLjABAAAArkXGHLHpA4uAC32TyXuktUilMv6v9gyvj7FE18XwaXVal0z3_ftrzQcJa5RZ87pR&iid=MS4wLjABAAAATKN8VWRQeookZ49Bu5zltv-NjUbEPDivbTSJ_SNdq8TDC_3KLBQnJVG80JAUTF2S&with_sec_did=1&timestamp=1793204694&utm_source=copy&utm_campaign=client_share&utm_medium=android&app=aweme&ug_share_id=7a96a7ac428a0_1793204695379&activity_info=%7B%22social_author_id%22%3A%22110846555790%22%2C%22social_share_id%22%3A%22110846555790_1793204692623%22%2C%22social_share_time%22%3A%221793204694%22%2C%22social_share_user_id%22%3A%22110846555790%22%7D" target="_blank" style="color:blue;text-decoration:underline;">zheshiwdedouyin</a><br>
+
+    <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:42px;height:42px;border-radius:50%;border:2px solid #888;overflow:hidden;flex-shrink:0;">
+            <img src="https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_0ab15fef37b44ddfac72701efda10c46.jpeg?from=2956013662" alt="Cool zimo头像" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        </div>
+        <span>七宗罪视频创作者：Cool zimo📷</span>
+    </div>
+    抖音号：<a href="https://www.iesdouyin.com/share/user/MS4wLjABAAAAQVDP2W49sNjjKetY85ez2yjVI7Bq0w4nQ1u7CruZEyw?sec_uid=MS4wLjABAAAAQVDP2W49sNjjKetY85ez2yjVI7Bq0w4nQ1u7CruZEyw&from_ssr=1&from_aid=1128&u_code=19chmb503&did=MS4wLjABAAAArkXGHLHpA4uAC32TyXuktUilMv6v9gyvj7FE18XwaXVal0z3_ftrzQcJa5RZ87pR&iid=MS4wLjABAAAATKN8VWRQeookZ49Bu5zltv-NjUbEPDivbTSJ_SNdq8TDC_3KLBQnJVG80JAUTF2S&with_sec_did=1&timestamp=1793204574&utm_source=copy&utm_campaign=client_share&utm_medium=android&app=aweme&life_share_ext=%7B%22life_share_id%22%3A%22b729c015541249df83d5da8a29815b7a%22%2C%22from_user_id%22%3A110846555790%2C%22enter_from%22%3A%22others_homepage%22%2C%22personal_enter_page%22%3A%22chat%22%2C%22personal_enter_method%22%3A%22%22%7D&ug_share_id=7a96a7ac428a0_1793204575659&activity_info=%7B%22social_author_id%22%3A%22100394147351%22%2C%22social_share_id%22%3A%22110846555790_1793204574561%22%2C%22social_share_time%22%3A%221793204574%22%2C%22social_share_user_id%22%3A%22110846555790%22%7D" target="_blank" style="color:blue;text-decoration:underline;">zimobiaobai</a><br>
+
+    <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:42px;height:42px;border-radius:50%;border:2px solid #888;overflow:hidden;flex-shrink:0;">
+            <img src="https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oMOEAiHeEk0VLBAfIPeU740GAIkBGOAwbMJvQA.jpeg?from=2956013662" alt="闷闷不乐乐乐头像" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        </div>
+        <span>七美德视频创作者：闷闷不乐乐乐</span>
+    </div>
+    抖音号：<a href="https://www.iesdouyin.com/share/user/MS4wLjABAAAAW6eWE5tlQT3YfSfOh03nxGaRxX9ual7YDHEeVafhfMW7hBRKbThqVg15EbA2C7_q?from_aid=1128&u_code=19chmb503&did=MS4wLjABAAAArkXGHLHpA4uAC32TyXuktUilMv6v9gyvj7FE18XwaXVal0z3_ftrzQcJa5RZ87pR&iid=MS4wLjABAAAATKN8VWRQeookZ49Bu5zltv-NjUbEPDivbTSJ_SNdq8TDC_3KLBQnJVG80JAUTF2S&with_sec_did=1&sec_uid=MS4wLjABAAAAW6eWE5tlQT3YfSfOh03nxGaRxX9ual7YDHEeVafhfMW7hBRKbThqVg15EbA2C7_q&from_ssr=1&timestamp=1793204460&utm_source=copy&utm_campaign=client_share&utm_medium=android&app=aweme&life_share_ext=%7B%22life_share_id%22%3A%225df9ccf1b2e741d29a96474413304fae%22%2C%22from_user_id%22%3A110846555790%2C%22enter_from%22%3A%22others_homepage%22%2C%22personal_enter_page%22%3A%22general_search%22%2C%22personal_enter_method%22%3A%22slide%22%7D&ug_share_id=7a96a7ac428a0_1793204461606&activity_info=%7B%22social_author_id%22%3A%223600267970619945%22%2C%22social_share_id%22%3A%22110846555790_1793204460339%22%2C%22social_share_time%22%3A%221793204460%22%2C%22social_share_user_id%22%3A%22110846555790%22%7D" target="_blank" style="color:blue;text-decoration:underline;">78683339767</a><br>
+
+    <span style="color:#ff2222;font-weight:bold;text-shadow:0 0 6px #ff3333;">本测试仅为娱乐参考不代表心理诊断！！！</span>
+</div>
+  `;
+  html += `</div>`;
+  resultBox.innerHTML = html;
+  observeAllVideo();
+  qBox.style.display = 'none';
+  resultBox.style.display = 'block';
+  nextBtn.style.display = 'none';
+  prevBtn.style.display = 'none';
+  body.classList.add("show-result-page");
+  if(isVirtue){
+    switchOtherTestBtn.innerText = "测一下七宗罪";
+  }else{
+    switchOtherTestBtn.innerText = "测一下七美德";
+  }
+}
+
+prevBtn.onclick = function(){
+  if(currentQ>0){
+    currentQ--;
+    renderQuestion();
+    nextBtn.disabled = answers[currentQ]===undefined;
+  }
+}
+
+nextBtn.onclick = function(){
+  currentQ++;
+  if(currentQ >= currentPool.length){
+    showResult();
+  }else{
+    renderQuestion();
+    nextBtn.disabled = answers[currentQ]===undefined;
+  }
+}
+
+restartBtn.onclick = function(){
+  answers = [];
+  currentQ = 0;
+  singleRainWord = "";
+  rainList.forEach(r=>r.reset());
+  if(isVirtue){
+    currentPool = shuffleArray([...virPool]);
+    currentMeta = virMeta;
+    rainWordPool = virWords;
+  }else{
+    currentPool = shuffleArray([...sinPool]);
+    currentMeta = sinMeta;
+    rainWordPool = sinWords;
+  }
+  qBox.style.display = 'block';
+  resultBox.style.display = 'none';
+  nextBtn.style.display = 'block';
+  prevBtn.style.display = 'block';
+  body.classList.remove("show-result-page");
+  renderQuestion();
+  nextBtn.disabled = true;
+  prevBtn.disabled = true;
+}
+
+//页面初始化
+isVirtue = false;
+body.className = "sin-mode";
+themeBtn.innerText = "😇";
+mainTitle.innerText = "七宗罪";
+subTitle.innerText = "击左上角天使切换美德人格测试";
+currentPool = shuffleArray([...sinPool]);
+currentMeta = sinMeta;
+rainWordPool = sinWords;
+answers = [];
+currentQ = 0;
+singleRainWord = "";
+qBox.style.display = 'block';
+resultBox.style.display = 'none';
+nextBtn.style.display = 'block';
+prevBtn.style.display = 'block';
+prevBtn.disabled = true;
+nextBtn.disabled = true;
+renderQuestion();
+</script>
+</body>
+</html>
